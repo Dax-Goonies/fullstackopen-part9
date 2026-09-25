@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.json());
 
+// Basic route to check if the server is running
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });
@@ -34,6 +35,7 @@ app.get('/bmi', (req, res) => {
   });
 });
 
+// Interface for the request body of the exercise calculator
 interface ExerciseRequestBody {
   daily_exercises: number[];
   target: number;

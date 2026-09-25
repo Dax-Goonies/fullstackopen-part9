@@ -1,6 +1,7 @@
 import { isNotNumber } from './utils.js';
 import { fileURLToPath } from 'url';
 
+// Interface for the result of the exercise calculation
 interface ExerciseResult {
   periodLength: number;
   trainingDays: number;
