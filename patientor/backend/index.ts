@@ -1,10 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-
+import diagnosesRouter from './src/routes/diagnoses.ts';
+import patientsRouter from './src/routes/patients.ts';
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+app.use('/api/diagnoses', diagnosesRouter);
+app.use('/api/patients', patientsRouter);
 
 const PORT = process.env.PORT || 3001;
 
