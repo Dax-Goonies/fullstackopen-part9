@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
   try {
     const newPatientEntry = toNewPatientEntry(req.body);
     const newId = uuid();
-    const addedPatient = {id: newId, ...newPatientEntry};
+    const addedPatient = {id: newId, entries:[], ...newPatientEntry};
     patients.push(addedPatient);
     res.json(addedPatient);
   } catch (error: unknown) {
@@ -31,6 +31,17 @@ router.post('/', (req, res) => {
     } 
       res.status(400).send(errorMessage);
   }
+});
+
+// GET: Fetch a specific patient info by id
+router.get('/:id', (req, res) => {
+  const patient = patients.find((p) => p.id === req.params.id);
+
+  if (!patient) {
+    res.status(404).send({ error: 'Patient not found' });
+    return;
+  }
+  res.json(patient);
 });
 
 export default router;
