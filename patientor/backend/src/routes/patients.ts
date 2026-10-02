@@ -4,6 +4,7 @@ import type { NonSensitivePatient } from '../data/types.ts';
 import { v1 as uuid } from 'uuid';
 import { z } from 'zod';
 import toNewPatientEntry from '../ultils/utils.ts';
+import { NewEntrySchema } from '../schemas.ts';
 
 const router = express.Router();
 
@@ -42,6 +43,27 @@ router.get('/:id', (req, res) => {
     return;
   }
   res.json(patient);
+});
+
+// POST: Add new entries
+router.post('/:id/entries', (req, res) => {
+  try {
+    const patient = patients.find((p) => p.id === req.params.id);
+    if (!patient) {
+      res.status(404).send({ error: 'Patient not found' });
+    }
+
+    const newEntry = NewEntrySchema.parse(req.body);
+    const entryWithId = { id: uuid(), ...newEntry};
+    patient?.entries.push(entryWithId);
+    res.json(patient);
+  } catch (error: unknown) {
+    if (error instanceof z.ZodError) {
+      res.status(400).send(error.issues.map(i => i.message).join(', '));
+    } else {
+      res.status(400).send('Something went wrong.');
+    }
+  }
 });
 
 export default router;
