@@ -76,7 +76,6 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           value={occupation}
           onChange={({ target }) => setOccupation(target.value)}
         />
-
         <InputLabel sx={{ marginTop: 2.5 }}>Gender</InputLabel>
         <Select
           label="Gender"
@@ -93,7 +92,6 @@ const AddPatientForm = ({ onCancel, onSubmit }: Props) => {
           }</MenuItem>
         )}
         </Select>
-
         <Grid container justifyContent="space-between" sx={{ marginTop: 2 }}>
           <Grid size="auto">
             <Button

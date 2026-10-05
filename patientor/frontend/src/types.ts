@@ -3,7 +3,9 @@ export interface Diagnosis {
   code: string;
   name: string;
   latin?: string;
-}
+};
+
+export type DiagnosisCleaned = Omit<Diagnosis, 'latin'>;
 
 // ENTRY
 export interface BaseEntry {
@@ -14,14 +16,14 @@ export interface BaseEntry {
   diagnosisCodes?: Array<Diagnosis['code']>;
 }
 
-const HealthCheckRating = {
+export const HealthCheckRating = {
   Healthy: 0,
   LowRisk: 1,
   HighRisk: 2,
   CriticalRisk: 3,
 } as const;
 
-type HealthCheckRating = typeof HealthCheckRating[keyof typeof HealthCheckRating];
+export type HealthCheckRating = typeof HealthCheckRating[keyof typeof HealthCheckRating];
 
 export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
@@ -52,6 +54,8 @@ export type Entry =
 
 type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
 export type EntryWithoutId = UnionOmit<Entry, 'id'>;
+
+export type EntryType = Entry['type'];
 
 // GENDER
 export enum Gender {

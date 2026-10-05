@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import type { EntryWithoutId, Patient } from "../../types";
-import patientService from "../../services/patients";
-import genderIcon from "../../utils/genderIcon";
-import EntryDetails from "./EntryDetails";
-import AddEntryModal from "../AddEntry";
-import { Button } from '@mui/material';
 import axios from "axios";
-
+import { Button, Divider } from '@mui/material';
+import type { Diagnosis, EntryWithoutId, Patient } from "../../types";
+import patientService from "../../services/patients";
+import diagnosisService from "../../services/diagnoses";
+import genderIcon from "../../utils/genderIcon";
+import EntryDetails from "./EntryDetails/EntryDetails";
+import AddEntryModal from "./AddEntry/AddEntryModal";
 
 const PatientPage = () => {
   const { id }= useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
-
+  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
@@ -37,9 +37,12 @@ const PatientPage = () => {
   };
 
   useEffect(() => {
+    diagnosisService.getAll().then(setDiagnoses);
+  }, []);
+
+  useEffect(() => {
     if (id) {
       patientService.getPatient(id).then(setPatient);
-      
     }
   }, [id]);
 
@@ -63,11 +66,13 @@ const PatientPage = () => {
           <EntryDetails key={entry.id} entry={entry} />
       ))
       )}
+      <Divider sx={{ marginY: 2 }} />
       <AddEntryModal 
         modalOpen={modalOpen}
         onSubmit={submitNewEntry}
         error={error}
         onClose={closeModal}
+        diagnoses={diagnoses}
       />
       <Button variant="contained" onClick={() => openModal()}>
         Add New Entry

@@ -7,7 +7,7 @@ import { apiBaseUrl } from "./constants";
 import { Patient } from "./types";
 
 import patientService from "./services/patients";
-import PatientListPage from "./components/PatientListPage";
+import PatientListPage from "./components/PatientListPage/PatientList";
 import PatientPage from "./components/PatientPage/PatientPage";
 
 const App = () => {

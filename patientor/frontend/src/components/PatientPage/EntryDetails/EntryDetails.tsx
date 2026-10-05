@@ -1,5 +1,5 @@
-import type { Entry } from "../../types";
-import { assertNever } from "../../utils/assertNever";
+import type { Entry } from "../../../types";
+import { assertNever } from "../../../utils/assertNever";
 import HealthCheckEntryDetails from "./HealthCheckEntryDetails";
 import HospitalEntryDetails from "./HospitalEntryDetails";
 import OccupationalHealthcareEntryDetails from "./OccupationalHealthcareEntryDetails";

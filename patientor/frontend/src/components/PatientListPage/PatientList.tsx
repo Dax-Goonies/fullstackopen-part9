@@ -2,12 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
 import axios from 'axios';
-
 import { PatientFormValues, Patient } from "../../types";
-import AddPatientModal from "../AddPatientModal";
-
+import AddPatientModal from "../AddPatientModal/AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
-
 import patientService from "../../services/patients";
 
 interface Props {
@@ -16,12 +13,10 @@ interface Props {
 }
 
 const PatientListPage = ({ patients, setPatients } : Props ) => {
-
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
   const openModal = (): void => setModalOpen(true);
-
   const closeModal = (): void => {
     setModalOpen(false);
     setError(undefined);
